@@ -1,0 +1,41 @@
+{
+  "name": "capstone-programacion-4",
+  "version": "1.0.0",
+  "description": "Digital UNO Card Game Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed:all"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.32.1",
+    "socket.io": "^4.8.1",
+    "sqlite3": "^5.1.6",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.1",
+    "supertest": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/daniel-lozano1/capstone-programacion-4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/daniel-lozano1/capstone-programacion-4/issues"
+  },
+  "homepage": "https://gitlab.com/daniel-lozano1/capstone-programacion-4#readme"
+}
