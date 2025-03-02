@@ -30,7 +30,7 @@ const Score = sequelize.define('Score', {
 });
 
 Score.associate = (models) => {
-  Score.belongsTo(models.User, { foreignKey: 'PlayerId' });
+  Score.belongsTo(models.User, { foreignKey: 'userId' });
   Score.belongsTo(models.Game, { foreignKey: 'gameId' });
 };
 

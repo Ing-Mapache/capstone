@@ -139,6 +139,83 @@ const getPlayerScores = async (req, res, next) => {
   }
 };
 
+const nextTurn = async (req, res) => {
+  try {
+    const { players, currentPlayerIndex } = req.body;
+
+    if (!players || !Array.isArray(players) || players.length === 0) {
+      return res.status(400).json({ error: 'La lista de jugadores es inválida' });
+    }
+
+    if (currentPlayerIndex === undefined || currentPlayerIndex < 0 || currentPlayerIndex >= players.length) {
+      return res.status(400).json({ error: 'El índice del jugador actual es inválido' });
+    }
+
+    const nextTurnData = gameService.calculateNextTurn(players, currentPlayerIndex);
+
+    res.status(200).json({
+      status: 200,
+      body: nextTurnData,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al calcular el siguiente turno', details: error.message });
+  }
+};
+
+const playCard = async (req, res) => {
+  try {
+    const { cardPlayed, currentPlayerIndex, players, direction } = req.body;
+
+    if (!cardPlayed || !players || !Array.isArray(players) || players.length === 0) {
+      return res.status(400).json({ error: 'Datos de entrada inválidos' });
+    }
+
+    if (currentPlayerIndex === undefined || currentPlayerIndex < 0 || currentPlayerIndex >= players.length) {
+      return res.status(400).json({ error: 'El índice del jugador actual es inválido' });
+    }
+
+    if (!direction || !['clockwise', 'counterclockwise'].includes(direction)) {
+      return res.status(400).json({ error: 'La dirección del juego es inválida' });
+    }
+
+    const result = gameService.processCardPlayed(cardPlayed, currentPlayerIndex, players, direction);
+
+    res.status(200).json({
+      status: 200,
+      body: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al procesar la carta jugada', details: error.message });
+  }
+};
+
+const drawCard = async (req, res) => {
+  try {
+    const { playerHand, deck, currentCard } = req.body;
+
+    if (!playerHand || !Array.isArray(playerHand)) {
+      return res.status(400).json({ error: 'La mano del jugador es inválida' });
+    }
+
+    if (!deck || !Array.isArray(deck) || deck.length === 0) {
+      return res.status(400).json({ error: 'El mazo de cartas es inválido' });
+    }
+
+    if (!currentCard) {
+      return res.status(400).json({ error: 'La carta actual es inválida' });
+    }
+
+    const result = gameService.drawAndCheckCard(playerHand, deck, currentCard);
+
+    res.status(200).json({
+      status: 200,
+      body: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al robar una carta', details: error.message });
+  }
+};
+
 module.exports = {
   createGame,
   getGameById,
@@ -153,4 +230,7 @@ module.exports = {
   getCurrentPlayer,
   getTopDiscardCard,
   getPlayerScores,
+  nextTurn,
+  playCard,
+  drawCard,
 };

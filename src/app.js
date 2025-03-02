@@ -18,6 +18,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use('/api', cacheMiddleware(cacheConfig));
+
 app.use('/api', userRoutes);
 app.use('/api', gameRoutes);
 app.use('/api', cardRoutes);
@@ -26,7 +28,6 @@ app.use('/api/auth', authRoutes);
 
 app.use(errorLogger);
 app.use(errorHandler);
-app.use(cacheMiddleware(cacheConfig));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -17,5 +17,8 @@ router.post('/games/players', gameController.getGamePlayers);
 router.post('/games/current-player', gameController.getCurrentPlayer);
 router.post('/games/top-discard-card', gameController.getTopDiscardCard);
 router.post('/games/scores', gameController.getPlayerScores);
+router.post('/games/nextTurn', authenticateToken, gameController.nextTurn);
+router.post('/games/playCard', authenticateToken, gameController.playCard);
+router.post('/games/drawCard', authenticateToken, gameController.drawCard);
 
 module.exports = router;

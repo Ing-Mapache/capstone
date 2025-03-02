@@ -62,6 +62,80 @@ class GameService {
   async getPlayerScores(gameId) {
     return await this.gameRepository.getPlayerScores(gameId);
   }
+
+  calculateNextTurn(players, currentPlayerIndex) {
+    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+    const nextPlayer = players[nextPlayerIndex];
+
+    return {
+      nextPlayerIndex,
+      nextPlayer,
+    };
+  }
+
+  processCardPlayed(cardPlayed, currentPlayerIndex, players, direction) {
+    let nextPlayerIndex;
+    let newDirection = direction;
+
+    const isClockwise = direction === 'clockwise';
+
+    if (cardPlayed === 'reverse') {
+      newDirection = isClockwise ? 'counterclockwise' : 'clockwise';
+      nextPlayerIndex = currentPlayerIndex;
+    } else if (cardPlayed === 'skip') {
+      if (isClockwise) {
+        nextPlayerIndex = (currentPlayerIndex + 2) % players.length;
+      } else {
+        nextPlayerIndex = (currentPlayerIndex - 2 + players.length) % players.length;
+      }
+    } else {
+      if (isClockwise) {
+        nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+      } else {
+        nextPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
+      }
+    }
+
+    const nextPlayer = players[nextPlayerIndex];
+    const skippedPlayer = cardPlayed === 'skip' ? players[(currentPlayerIndex + 1) % players.length] : null;
+
+    return {
+      newDirection,
+      nextPlayerIndex,
+      nextPlayer,
+      skippedPlayer,
+    };
+  }
+
+  isCardPlayable(card, currentCard) {
+    const [cardColor, cardValue] = card.split('_');
+    const [currentColor, currentValue] = currentCard.split('_');
+
+    return cardColor === currentColor || cardValue === currentValue;
+  }
+
+  drawAndCheckCard(playerHand, deck, currentCard) {
+    let drawnCard;
+    let playable = false;
+
+    while (deck.length > 0) {
+      drawnCard = deck.shift();
+      playerHand.push(drawnCard);
+
+      if (this.isCardPlayable(drawnCard, currentCard)) {
+        playable = true;
+        break;
+      }
+    }
+
+    return {
+      newHand: playerHand,
+      drawnCard,
+      playable,
+    };
+  }
 }
+
 
 module.exports = GameService;

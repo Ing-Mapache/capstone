@@ -11,7 +11,7 @@ const PlayerGame = sequelize.define('PlayerGame', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'User',
+      model: 'Users',
       key: 'id',
     },
   },
@@ -19,7 +19,7 @@ const PlayerGame = sequelize.define('PlayerGame', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Game',
+      model: 'Games',
       key: 'id',
     },
   },
