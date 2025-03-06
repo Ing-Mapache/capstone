@@ -1,0 +1,446 @@
+{
+	"info": {
+	  "name": "UNO Card Game API",
+	  "description": "Colección de endpoints para la API del juego de cartas UNO",
+	  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+	  {
+		"name": "Players",
+		"item": [
+		  {
+			"name": "Crear Jugador",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"name\": \"Alice\",\n\t\"age\": 28,\n\t\"email\": \"alice@example.com\"\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/players",
+				"host": ["{{host}}"],
+				"path": ["api", "players"]
+			  },
+			  "description": "Crear un nuevo jugador"
+			}
+		  },
+		  {
+			"name": "Obtener Todos los Jugadores",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/players",
+				"host": ["{{host}}"],
+				"path": ["api", "players"]
+			  },
+			  "description": "Obtener todos los jugadores"
+			}
+		  },
+		  {
+			"name": "Obtener Jugador por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/players/{{playerId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "players", "{{playerId}}"]
+			  },
+			  "description": "Obtener un jugador por su ID"
+			}
+		  },
+		  {
+			"name": "Actualizar Jugador",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"name\": \"Alice Updated\",\n\t\"age\": 29\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/players/{{playerId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "players", "{{playerId}}"]
+			  },
+			  "description": "Actualizar un jugador existente"
+			}
+		  },
+		  {
+			"name": "Eliminar Jugador",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/players/{{playerId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "players", "{{playerId}}"]
+			  },
+			  "description": "Eliminar un jugador"
+			}
+		  }
+		]
+	  },
+	  {
+		"name": "Games",
+		"item": [
+		  {
+			"name": "Crear Juego",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"title\": \"UNO\",\n\t\"status\": \"active\",\n\t\"maxPlayers\": 4\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/games",
+				"host": ["{{host}}"],
+				"path": ["api", "games"]
+			  },
+			  "description": "Crear un nuevo juego"
+			}
+		  },
+		  {
+			"name": "Obtener Todos los Juegos",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/games",
+				"host": ["{{host}}"],
+				"path": ["api", "games"]
+			  },
+			  "description": "Obtener todos los juegos"
+			}
+		  },
+		  {
+			"name": "Obtener Juego por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/games/{{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "games", "{{gameId}}"]
+			  },
+			  "description": "Obtener un juego por su ID"
+			}
+		  },
+		  {
+			"name": "Actualizar Juego",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"status\": \"completed\"\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/games/{{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "games", "{{gameId}}"]
+			  },
+			  "description": "Actualizar un juego existente"
+			}
+		  },
+		  {
+			"name": "Eliminar Juego",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/games/{{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "games", "{{gameId}}"]
+			  },
+			  "description": "Eliminar un juego"
+			}
+		  }
+		]
+	  },
+	  {
+		"name": "Cards",
+		"item": [
+		  {
+			"name": "Crear Carta",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"color\": \"blue\",\n\t\"value\": \"3\",\n\t\"gameId\": \"{{gameId}}\"\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/cards",
+				"host": ["{{host}}"],
+				"path": ["api", "cards"]
+			  },
+			  "description": "Crear una nueva carta"
+			}
+		  },
+		  {
+			"name": "Obtener Todas las Cartas",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/cards",
+				"host": ["{{host}}"],
+				"path": ["api", "cards"]
+			  },
+			  "description": "Obtener todas las cartas"
+			}
+		  },
+		  {
+			"name": "Obtener Cartas por Juego",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/cards?gameId={{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "cards"],
+				"query": [
+				  {
+					"key": "gameId",
+					"value": "{{gameId}}"
+				  }
+				]
+			  },
+			  "description": "Obtener todas las cartas de un juego específico"
+			}
+		  },
+		  {
+			"name": "Obtener Carta por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/cards/{{cardId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "cards", "{{cardId}}"]
+			  },
+			  "description": "Obtener una carta por su ID"
+			}
+		  },
+		  {
+			"name": "Actualizar Carta",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"color\": \"red\"\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/cards/{{cardId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "cards", "{{cardId}}"]
+			  },
+			  "description": "Actualizar una carta existente"
+			}
+		  },
+		  {
+			"name": "Eliminar Carta",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/cards/{{cardId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "cards", "{{cardId}}"]
+			  },
+			  "description": "Eliminar una carta"
+			}
+		  },
+		  {
+			"name": "Inicializar Baraja",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/cards/initialize/{{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "cards", "initialize", "{{gameId}}"]
+			  },
+			  "description": "Inicializar la baraja para un juego"
+			}
+		  }
+		]
+	  },
+	  {
+		"name": "Scores",
+		"item": [
+		  {
+			"name": "Crear Score",
+			"request": {
+			  "method": "POST",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"playerId\": \"{{playerId}}\",\n\t\"gameId\": \"{{gameId}}\",\n\t\"score\": 200\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/scores",
+				"host": ["{{host}}"],
+				"path": ["api", "scores"]
+			  },
+			  "description": "Crear un nuevo score"
+			}
+		  },
+		  {
+			"name": "Obtener Todos los Scores",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/scores",
+				"host": ["{{host}}"],
+				"path": ["api", "scores"]
+			  },
+			  "description": "Obtener todos los scores"
+			}
+		  },
+		  {
+			"name": "Obtener Score por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/scores/{{scoreId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "scores", "{{scoreId}}"]
+			  },
+			  "description": "Obtener un score por su ID"
+			}
+		  },
+		  {
+			"name": "Obtener Scores por Jugador",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/scores/player/{{playerId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "scores", "player", "{{playerId}}"]
+			  },
+			  "description": "Obtener todos los scores de un jugador específico"
+			}
+		  },
+		  {
+			"name": "Obtener Scores por Juego",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/scores/game/{{gameId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "scores", "game", "{{gameId}}"]
+			  },
+			  "description": "Obtener todos los scores de un juego específico"
+			}
+		  },
+		  {
+			"name": "Actualizar Score",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n\t\"score\": 250\n}"
+			  },
+			  "url": {
+				"raw": "{{host}}/api/scores/{{scoreId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "scores", "{{scoreId}}"]
+			  },
+			  "description": "Actualizar un score existente"
+			}
+		  },
+		  {
+			"name": "Eliminar Score",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "{{host}}/api/scores/{{scoreId}}",
+				"host": ["{{host}}"],
+				"path": ["api", "scores", "{{scoreId}}"]
+			  },
+			  "description": "Eliminar un score"
+			}
+		  }
+		]
+	  }
+	],
+	"variable": [
+	  {
+		"key": "host",
+		"value": "http://localhost:3000",
+		"description": "URL base de la API"
+	  },
+	  {
+		"key": "playerId",
+		"value": "1",
+		"description": "ID de un jugador"
+	  },
+	  {
+		"key": "gameId",
+		"value": "1",
+		"description": "ID de un juego"
+	  },
+	  {
+		"key": "cardId",
+		"value": "1",
+		"description": "ID de una carta"
+	  },
+	  {
+		"key": "scoreId",
+		"value": "1",
+		"description": "ID de un score"
+	  }
+	]
+  }
