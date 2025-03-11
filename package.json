@@ -1,45 +1,44 @@
 {
-  "name": "capstone",
+  "name": "capstone-programacion-4",
   "version": "1.0.0",
-  "main": "src/app.js",
-  "directories": {
-    "test": "test"
-  },
+  "description": "Digital UNO Card Game Backend",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "jest"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed:all"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ing-Mapache/capstone.git"
-  },
-  "keywords": [
-    "uno",
-    "card-game",
-    "nodejs",
-    "functional-programming",
-    "capstone"
-  ],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "pg": "^8.13.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.6",
-    "uuid": "^9.0.1"
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.32.1",
+    "socket.io": "^4.8.1",
+    "sqlite3": "^5.1.6",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.1.9",
-    "supertest": "^6.3.4"
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.1",
+    "supertest": "^7.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/daniel-lozano1/capstone-programacion-4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ing-Mapache/capstone/issues"
+    "url": "https://gitlab.com/daniel-lozano1/capstone-programacion-4/issues"
   },
-  "homepage": "https://github.com/Ing-Mapache/capstone#readme",
-  "description": ""
+  "homepage": "https://gitlab.com/daniel-lozano1/capstone-programacion-4#readme"
 }

@@ -1,14 +1,15 @@
 const express = require('express');
 const scoreController = require('../controllers/scoreController');
+const { validateScore, validateIdParam, handleValidationErrors } = require('../../business/validators/inputValidator');
 
 const router = express.Router();
 
-router.post('/', scoreController.createScore);
+router.post('/', validateScore, handleValidationErrors, scoreController.createScore);
 router.get('/', scoreController.getAllScores);
-router.get('/:id', scoreController.getScoreById);
-router.get('/player/:playerId', scoreController.getScoresByPlayer);
-router.get('/game/:gameId', scoreController.getScoresByGame);
-router.put('/:id', scoreController.updateScore);
-router.delete('/:id', scoreController.deleteScore);
+router.get('/:id', validateIdParam, handleValidationErrors, scoreController.getScoreById);
+router.get('/player/:playerId', validateIdParam, handleValidationErrors, scoreController.getScoresByPlayer);
+router.get('/game/:gameId', validateIdParam, handleValidationErrors, scoreController.getScoresByGame);
+router.put('/:id', validateIdParam, validateScore, handleValidationErrors, scoreController.updateScore);
+router.delete('/:id', validateIdParam, handleValidationErrors, scoreController.deleteScore);
 
 module.exports = router;

@@ -1,46 +1,50 @@
 const express = require('express');
-const cors = require('cors');
-const { sequelize } = require('./data/config/database');
-
-const playerRoutes = require('./presentation/routes/playerRoutes');
-const gameRoutes = require('./presentation/routes/gameRoutes');
-const cardRoutes = require('./presentation/routes/cardRoutes');
-const scoreRoutes = require('./presentation/routes/scoreRoutes');
-
-const errorHandler = require('./presentation/middlewares/errorHandler');
-
+const userRoutes = require('./routes/userRoutes');
+const gameRoutes = require('./routes/gameRoutes');
+const cardRoutes = require('./routes/cardRoutes');
+const scoreRoutes = require('./routes/scoreRoutes');
+const authRoutes = require('./routes/authRoutes');
+const errorLogger = require('./middlewares/errorLogger');
+const errorHandler = require('./middlewares/errorHandler');
+const cacheMiddleware = require('./middlewares/cacheMiddleware');
+const logger = require('./utils/logger');
+const swaggerSetup = require('./config/swagger.js');
+const rateLimit = require('express-rate-limit');
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const cacheConfig = {
+  max: 50,
+  maxAge: 30000,
+};
 
-app.use('/api/players', playerRoutes);
-app.use('/api/games', gameRoutes);
-app.use('/api/cards', cardRoutes);
-app.use('/api/scores', scoreRoutes);
-
-app.get('/', (req, res) => {
-  res.send('API del juego UNO está funcionando');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
 });
 
+app.use(limiter);
+
+app.use(trackingMiddleware);
+
+swaggerSetup(app);
+
+app.use(express.json());
+
+app.use('/api', cacheMiddleware(cacheConfig));
+
+app.use('/api', userRoutes);
+app.use('/api', gameRoutes);
+app.use('/api', cardRoutes);
+app.use('/api', scoreRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api', statsRoutes);
+
+app.use(errorLogger);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
-
-const startServer = async () => {
-  try {
-    await sequelize.sync();
-    console.log('Base de datos conectada correctamente');
-    
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en el puerto ${PORT}`);
-    });
-  } catch (error) {
-    console.error('Error al iniciar el servidor:', error);
-    process.exit(1);
-  }
-};
-
-startServer();
+app.listen(PORT, () => {
+  logger.info(`Servidor corriendo en http://localhost:${PORT}`);
+});
 
 module.exports = app;
